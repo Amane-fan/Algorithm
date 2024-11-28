@@ -6,13 +6,13 @@
 
 首先我们可以对该式子进行处理：
 
-### $\sum_{i=1}^{n-1}$ $\sum_{j=i+1}^{n}$$ai\oplus ai+1\oplus...aj$     =    $\sum_{i=1}^{n}$ $\sum_{j=i}^{n}$ $ai\oplus ai+1\oplus...aj$  $-$ $\sum_{i=1}^{n}ai$
+### $\sum_{i=1}^{n-1}$ $\sum_{j=i+1}^{n}$ $ai\oplus ai+1\oplus...aj$     =    $\sum_{i=1}^{n}$ $\sum_{j=i}^{n}$ $ai\oplus ai+1\oplus...aj$  $-$ $\sum_{i=1}^{n}ai$
 
 记 `b[i]` = $\sum_{i}^{j}$ $ai\oplus ai+1\oplus...aj$
 
 则上式等于
 
-### $\sum_{i=0}^{n-1}$ $\sum_{j=i+1}^{n}$ $bi\oplus bj  - $$\sum_{i=1}^{n}ai$
+### $\sum_{i=0}^{n-1}$ $\sum_{j=i+1}^{n}$ $bi\oplus bj  - $ $\sum_{i=1}^{n}ai$
 
 如此一来，我们就可以通过计算每个数的每一位的贡献解决
 
