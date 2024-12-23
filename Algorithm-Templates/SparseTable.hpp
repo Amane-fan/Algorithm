@@ -2,7 +2,6 @@ struct SparseTable {
     vector<vector<int>> f;
     SparseTable(vector<int> &a, int n) {
         int logN = __lg(n) + 1;
-        Log.resize(n + 1);
         f.assign(n + 1, vector<int>(logN + 1));
         for (int i = 1; i <= n; i++) {
             f[i][0] = a[i];
