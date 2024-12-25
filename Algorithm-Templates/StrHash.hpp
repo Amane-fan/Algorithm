@@ -20,6 +20,7 @@ base = std::uniform_int_distribution<int>(8e8, 9e8)(rng);
 struct Hash {
     vector<ll> h;
     vector<ll> p;
+    Hash(){}
     Hash(string &s) {
         init(s);
     }
