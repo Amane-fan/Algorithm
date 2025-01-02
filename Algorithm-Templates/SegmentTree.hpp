@@ -1,5 +1,7 @@
 template <class Info>
 struct SegmentTree {
+    #define ls(x) (x << 1)
+    #define rs(x) (x << 1 | 1)
     int n;
     vector<Info> info;
     SegmentTree(): n(0) {}
@@ -52,4 +54,6 @@ struct SegmentTree {
     Info query(int l, int r) {
         return query(1, 1, n, l, r);
     }
+    #undef ls
+    #undef rs
 };
