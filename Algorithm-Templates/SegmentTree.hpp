@@ -8,6 +8,10 @@ struct SegmentTree {
     SegmentTree(int n_, Info v_ = Info()) {
         init(n_, v_);
     }
+    template<class T>
+    SegmentTree(vector<T> init_) {
+        init(init_);
+    }
     void init(int n_, Info v_ = Info()) {
         init(vector<Info>(n_ + 1, v_));
     }
