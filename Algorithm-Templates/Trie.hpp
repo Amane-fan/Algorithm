@@ -1,27 +1,49 @@
-const int N = 5e6 + 10;
-
-int trie[N][26];
-int cnt[N];
-int idx = 0;
-
-void insert(string &s) {
-    int n = s.size();
-    int p = 0;
-    for (int i = 0; i < n; i++) {
-        int u = s[i] - 'a';
-        if (!trie[p][u]) trie[p][u] = ++idx;
-        p = trie[p][u];
+template<class Node>
+struct Trie {
+    Node* root;
+    Trie() {
+        root = new Node();
     }
-    cnt[p]++;
-}
-
-int query(string &s) {
-    int n = s.size();
-    int p = 0;
-    for (int i = 0; i < n; i++) {
-        int u = s[i] - 'a';
-        if (!trie[p][u]) return -1;
-        p = trie[p][u];
+    ~Trie() {
+        deleteTree(root);
     }
-    return cnt[p];
-}
+    void deleteTree(Node* node) {
+        if (node == nullptr) return;
+        for (auto &e : node->trie) {
+            deleteTree(e);
+        }
+        delete node;
+    }
+    void insert(string s) {
+        int n = s.size();
+        Node* p = root;
+        for (int i = 0; i < n; i++) {
+            int u = get(s[i]);
+            if (p->trie[u] == nullptr) p->trie[u] = new Node();
+            p = p->trie[u];
+        }
+        p->cnt++;
+    }
+    Node* query(string s) {
+        int n = s.size();
+        Node* p = root;
+        for (int i = 0; i < n; i++) {
+            int u = get(s[i]);
+            if (p->trie[u] == nullptr) return nullptr;
+            p = p->trie[u];
+        }
+        return p;
+    }
+    int get(char c) {
+        return c - 'a';
+    }
+};
+
+struct Node {
+    int cnt;
+    int ans;
+    array<Node*, 26> trie;
+    Node():cnt(0),ans(0) {
+        fill(trie.begin(), trie.end(), nullptr);
+    }
+};
