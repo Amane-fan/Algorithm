@@ -1,22 +1,24 @@
+template <typename T, typename F>
 struct SparseTable {
-    vector<vector<int>> f;
-    SparseTable(vector<int> &a, int n) {
-        init(a, n);
-    }
-    void init(vector<int> &a, int n) {
+    int n;
+    F fun;
+    vector<vector<T>> f;
+    SparseTable(const vector<T> &a, const F &fun_): n(sz(a) - 1), fun(fun_) {
+        int n = a.size() - 1;
         int logN = __lg(n) + 1;
-        f.assign(n + 1, vector<int>(logN + 1));
+        f.assign(n + 1, vector<T>(logN + 1));
         for (int i = 1; i <= n; i++) {
             f[i][0] = a[i];
         }
         for (int j = 1; j <= logN; j++) {
             for (int i = 1; i + (1 << j) - 1 <= n; i++) {
-                f[i][j] = max(f[i][j - 1], f[i + (1 << (j - 1))][j - 1]);
+                f[i][j] = fun(f[i][j - 1], f[i + (1 << (j - 1))][j - 1]);
             }
         }
     }
-    int getMax(int l, int r) {
+    T query(int l, int r) {
+        assert(1 <= l && l <= r && r <= n);
         int s = __lg(r - l + 1);
-        return max(f[l][s], f[r - (1 << s) + 1][s]);
+        return fun(f[l][s], f[r - (1 << s) + 1][s]);
     }
 };
