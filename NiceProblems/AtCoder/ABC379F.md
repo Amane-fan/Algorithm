@@ -1,6 +1,6 @@
 > 题目链接：https://atcoder.jp/contests/abc379/tasks/abc379_f
 
-> 标签：ST表，单调栈，二分
+> 标签：ST表，单调栈，二分，离线
 
 ## 思路：
 
