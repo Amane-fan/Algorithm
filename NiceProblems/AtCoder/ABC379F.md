@@ -27,17 +27,8 @@
 #define sz(x) (int)(x).size()
 #define all(x) (x).begin(),(x).end()
 #define All(x) (x).begin() + 1,(x).end()
-#define fi first
-#define se second
-using ull = unsigned long long;
 using ll = long long;
-using F = long double;
 using namespace std;
-
-/*   /\_/\
-*   (= ._.)
-*   / >  \>
-*/
 
 template <typename T, typename F>
 struct SparseTable {
