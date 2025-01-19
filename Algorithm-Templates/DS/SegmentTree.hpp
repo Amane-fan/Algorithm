@@ -45,7 +45,7 @@ struct SegmentTree {
     void modify(int x, const Info &v) {
         modify(1, 1, n, x, v);        
     }
-    Info query(int id, int l, int r, int x, int y) {
+    Info rangeQuery(int id, int l, int r, int x, int y) {
         if (x > r || y < l) {
             return Info();
         }
@@ -53,10 +53,10 @@ struct SegmentTree {
             return info[id];
         }
         int mid = l + r >> 1;
-        return query(ls(id), l, mid, x, y) + query(rs(id), mid + 1, r, x, y);
+        return rangeQuery(ls(id), l, mid, x, y) + rangeQuery(rs(id), mid + 1, r, x, y);
     }
-    Info query(int l, int r) {
-        return query(1, 1, n, l, r);
+    Info rangeQuery(int l, int r) {
+        return rangeQuery(1, 1, n, l, r);
     }
     #undef ls
     #undef rs
