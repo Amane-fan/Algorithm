@@ -6,17 +6,12 @@ struct SegmentTree {
     vector<Info> info;
     SegmentTree(): n(0) {}
     SegmentTree(int n_, Info v_ = Info()) {
-        init(n_, v_);
-    }
-    template<class T>
-    SegmentTree(vector<T> init_) {
-        init(init_);
-    }
-    void init(int n_, Info v_ = Info()) {
         init(vector<Info>(n_ + 1, v_));
     }
-    template <class T>
-    void init(vector<T> init_) {
+    SegmentTree(vector<Info> init_) {
+        init(init_);
+    }
+    void init(vector<Info> init_) {
         n = init_.size() - 1;
         info.assign(n << 2, Info());
         function<void(int, int, int)> build = [&](int id, int l, int r) {
@@ -40,15 +35,20 @@ struct SegmentTree {
             return;
         }
         int mid = l + r >> 1;
-        if (x <= mid) modify(ls(id), l, mid, x, v);
-        else modify(rs(id), mid + 1, r, x, v);
+        if (x <= mid){
+            modify(ls(id), l, mid, x, v);
+        } else {
+            modify(rs(id), mid + 1, r, x, v);
+        }
         pushUp(id);
     }
     void modify(int x, const Info &v) {
-        modify(1, 1, n, x, v);
+        modify(1, 1, n, x, v);        
     }
     Info query(int id, int l, int r, int x, int y) {
-        if (x > r || y < l) return Info();
+        if (x > r || y < l) {
+            return Info();
+        }
         if (x <= l && y >= r) {
             return info[id];
         }
