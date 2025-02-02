@@ -3,7 +3,7 @@ struct SparseTable {
     int n;
     F fun;
     vector<vector<T>> f;
-    SparseTable(const vector<T> &a, const F &fun_): n(sz(a) - 1), fun(fun_) {
+    SparseTable(const vector<T> &a, const F &fun_): n(int(a.size()) - 1), fun(fun_) {
         int logN = __lg(n) + 1;
         f.assign(n + 1, vector<T>(logN + 1));
         for (int i = 1; i <= n; i++) {
