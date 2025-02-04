@@ -58,6 +58,50 @@ struct SegmentTree {
     Info rangeQuery(int l, int r) {
         return rangeQuery(1, 1, n, l, r);
     }
+    template<class F>
+    int findFirst(int id, int l, int r, int x, int y, F &&pred) {
+        if (x > r || y < l) {
+            return -1;
+        }
+        if (x <= l && y >= r && !pred(info[id])) {
+            return -1;
+        }
+        if (l == r) {
+            return l;
+        }
+        int mid = l + r >> 1;
+        int res = findFirst(ls(id), l, mid, x, y, pred);
+        if (res == -1) {
+            res = findFirst(rs(id), mid + 1, r, x, y, pred);
+        }
+        return res;
+    }
+    template<class F>
+    int findFirst(int l, int r, F &&pred) {
+        return findFirst(1, 1, n, l, r, pred);
+    }
+    template<class F>
+    int findLast(int id, int l, int r, int x, int y, F &&pred) {
+        if (x > r || y < l) {
+            return -1;
+        }
+        if (x <= l && y >= r && !pred(info[id])) {
+            return -1;
+        }
+        if (l == r) {
+            return l;
+        }
+        int mid = l + r >> 1;
+        int res = findLast(rs(id), mid + 1, r, pred);
+        if (res == -1) {
+            res = findLast(ls(id), l, mid, pred);
+        }
+        return res;
+    }
+    template<class F>
+    int findLast(int l, int r, F &&pred) {
+        return findLast(1, 1, n, l, r, pred);
+    }
     #undef ls
     #undef rs
 };
