@@ -92,9 +92,9 @@ struct SegmentTree {
             return l;
         }
         int mid = l + r >> 1;
-        int res = findLast(rs(id), mid + 1, r, pred);
+        int res = findLast(rs(id), mid + 1, r, x, y, pred);
         if (res == -1) {
-            res = findLast(ls(id), l, mid, pred);
+            res = findLast(ls(id), l, mid, x, y, pred);
         }
         return res;
     }
