@@ -1,4 +1,4 @@
-template <typename T, typename F>
+template <class T, class F>
 struct SparseTable {
     int n;
     F fun;
