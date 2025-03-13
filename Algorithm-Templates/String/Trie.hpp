@@ -1,4 +1,5 @@
 struct Trie {
+    #define f(x, y) t[x].ch[y]
     struct Node {
         int cnt;
         array<int,26> ch;
@@ -23,11 +24,11 @@ struct Trie {
         int p = 0;
         for (int i = 0; i < n; i++) {
             int u = get(s[i]);
-            if (t[p].ch[u] == 0) {
+            if (f(p, u) == 0) {
                 int k = newNode();
-                t[p].ch[u] = k;
+                f(p, u) = k;
             }
-            p = t[p].ch[u];
+            p = f(p, u);
         }
         t[p].cnt++;
     }
@@ -36,9 +37,10 @@ struct Trie {
         int p = 0;
         for (int i = 0; i < n; i++) {
             int u = get(s[i]);
-            if (t[p].ch[u] == 0) return Node();
-            p = t[p].ch[u];
+            if (f(p, u) == 0) return Node();
+            p = f(p, u);
         }
         return t[p];
     }
+    #undef f
 };
