@@ -1,37 +1,21 @@
 vector<int> Manacher(string s) {
-    string t = " #";
-    for (int i = 1; i < s.size(); i++) {
-        t.push_back(s[i]);
+    string t = "#"
+    for (auto c : s) {
+        t.push_back(c);
         t.push_back('#');
     }
-
-    int n = t.size() - 1;
-    vector<int> d(n + 1);
-    int C = 1, R = 1;
-    for (int i = 1; i <= n; i++) {
-        d[i] = min(d[C * 2 - i], R - i);
-        if (i >= R) {
-            d[i] = 0;
+    int n = t.size();
+    vector<int> r(n);
+    for (int i = 0, j = 0; i < n; i++) {
+        if (j * 2 - i >= 0 && j + r[j] > i) {
+            r[i] = min(r[j * 2 - i], j + r[j] - i);
         }
-        while (i + d[i] + 1 <= n && t[i + d[i] + 1] == t[i - d[i] - 1]) {
-            d[i]++;
+        while (i - r[i] >= 0 && i + r[i] < n && t[i - r[i]] == t[i + r[i]]) {
+            r[i]++;
         }
-        if (i + d[i] > R) {
-            C = i;
-            R = i + d[i];
+        if (i + r[i] > j + r[j]) {
+            j = i;
         }
     }
-    return d;
-}
-
-pair<int, int> getOdd(vector<int> &d, int i) {
-    int l = (i * 2 - d[i * 2] + 1) / 2;
-    int r = (i * 2 + d[i * 2] - 1) / 2;
-    return make_pair(l, r);
-}
-
-pair<int, int> getEven(vector<int> &d, int i) {
-    int l = (i * 2 + 1 - d[i * 2 + 1] + 1) / 2;
-    int r = (i * 2 + 1 + d[i * 2 + 1] - 1) / 2;
-    return make_pair(l, r);
+    return r;
 }
